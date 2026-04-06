@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuntz Design System</title>
+    
+    <!-- Fonts from Original -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons from Original (animation-clean uses Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tailwind for Layout of the DS itself -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* =========================================================================
+           1. ORIGINAL CSS VARIABLES & BASE
+           ========================================================================= */
+        :root {
+            --verde: #1B3820;
+            --verde-light: #264d2e;
+            --verde-dark: #0f2214;
+            --dourado: #F4E0B0;
+            --dourado-dark: #B2A886;
+            --dourado-accent: #d4b96a;
+            --escuro: #1C1C1C;
+            --escuro-soft: #2a2a2a;
+            --branco: #f8f6f1;
+            --branco-puro: #ffffff;
+            --cinza-text: #b0ada5;
+            --cinza-light: #e8e4dc;
+            --font-display: 'Cinzel', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--branco);
+            background-color: var(--escuro);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Typography Utilities */
+        .font-display { font-family: var(--font-display); }
+        .font-body { font-family: var(--font-body); }
+
+        /* =========================================================================
+           2. ORIGINAL BRAND COMPONENTS (KUNTZ)
+           ========================================================================= */
+        
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 4px; text-transform: uppercase;
+            color: var(--dourado-accent); margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 500; color: var(--branco);
+            line-height: 1.25; margin-bottom: 24px;
+        }
+
+        .gold-line {
+            width: 60px; height: 2px;
+            background: linear-gradient(90deg, var(--dourado-accent), transparent);
+            margin-bottom: 32px;
+        }
+
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 16px 36px; background: var(--dourado-accent);
+            color: var(--escuro); font-family: var(--font-body);
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; border: none; cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: var(--dourado); transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(212, 185, 106, 0.2);
+        }
+
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 16px 36px; background: transparent;
+            color: var(--branco); font-family: var(--font-body);
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 2px;
+            text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            border-color: var(--dourado-accent); color: var(--dourado);
+        }
+
+        .scenario-card {
+            position: relative; padding: 40px 32px;
+            background: linear-gradient(145deg, rgba(27, 56, 32, 0.15), rgba(28, 28, 28, 0.8));
+            border: 1px solid rgba(244, 224, 176, 0.08);
+            transition: all 0.4s ease; cursor: default;
+        }
+        .scenario-card:hover {
+            border-color: var(--dourado-accent); transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+        }
+        .scenario-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 3px; height: 0; background: var(--dourado-accent);
+            transition: height 0.4s ease;
+        }
+        .scenario-card:hover::before { height: 100%; }
+
+        .form-group label {
+            font-size: 0.72rem; font-weight: 600; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--cinza-text);
+        }
+        .form-group input, .form-group textarea {
+            padding: 14px 18px; background: rgba(27, 56, 32, 0.12);
+            border: 1px solid rgba(244, 224, 176, 0.1); color: var(--branco);
+            font-family: var(--font-body); font-size: 0.92rem; outline: none;
+            transition: border-color 0.3s ease; width: 100%;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--dourado-accent); }
+
+        /* =========================================================================
+           3. ORIGINAL ANIMATIONS (ANIMATION-CLEAN)
+           ========================================================================= */
+           
+        .char {
+            display: inline-block; opacity: 0; transform: translateY(100%);
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .char.revealed {
+            opacity: 1; transform: translateY(0);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .animate-on-scroll {
+            opacity: 0.01; filter: blur(10px); transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .animate-on-scroll.in-view {
+            opacity: 1; filter: blur(0); transform: translateY(0);
+        }
+
+        /* New Glow Button */
+        .btn-glow {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 16px 36px; background: var(--escuro);
+            color: var(--dourado); font-family: var(--font-body);
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; border: none; cursor: pointer;
+            transition: all 0.3s ease; position: relative; overflow: hidden;
+            z-index: 1; outline: none; text-decoration: none;
+        }
+
+        .btn-glow::before {
+            content: ''; position: absolute; top: 50%; left: 50%; 
+            width: 300%; aspect-ratio: 1 / 1;
+            background: conic-gradient(from 0deg, transparent 70%, var(--dourado-accent) 100%);
+            transform: translate(-50%, -50%);
+            animation: rotate-border 3s linear infinite; z-index: -2;
+        }
+
+        .btn-glow::after {
+            content: ''; position: absolute; inset: 1px;
+            background: var(--escuro); z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .btn-glow:hover {
+            color: var(--escuro); transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(212, 185, 106, 0.2);
+        }
+
+        .btn-glow:hover::after {
+            background: var(--dourado-accent);
+        }
+
+        @keyframes rotate-border {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .flashlight-card {
+            position: relative; background-color: rgba(23, 23, 23, 0.4);
+            border: 1px solid rgba(244, 224, 176, 0.08); overflow: hidden;
+        }
+        .flashlight-card::before {
+            content: ""; position: absolute; height: 100%; width: 100%;
+            left: 0; top: 0; border-radius: inherit;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212, 185, 106, 0.06), transparent 40%);
+            opacity: 0; transition: opacity 0.5s; pointer-events: none; z-index: 3;
+        }
+        .flashlight-border {
+            position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212, 185, 106, 0.6), transparent 40%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            opacity: 0; transition: opacity 0.5s;
+        }
+        .flashlight-card:hover::before, .flashlight-card:hover .flashlight-border { opacity: 1; }
+
+        /* =========================================================================
+           4. DESIGN SYSTEM DOCUMENTATION LAYOUT CLASSES
+           ========================================================================= */
+
+        .ds-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(28, 28, 28, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(244, 224, 176, 0.08); height: 72px;
+        }
+        .ds-section {
+            padding: 6rem 2rem; max-width: 1400px; margin: 0 auto;
+            border-bottom: 1px solid rgba(244, 224, 176, 0.05); scroll-margin-top: 72px;
+        }
+        .ds-section:last-child { border-bottom: none; }
+        .ds-section-title-doc {
+            font-family: var(--font-display); font-size: 2.2rem; color: var(--branco);
+            margin-bottom: 3rem; font-weight: 500;
+        }
+        .ds-card {
+            background: rgba(42, 42, 42, 0.3); border: 1px solid rgba(244, 224, 176, 0.08);
+            border-radius: 16px; padding: 2.5rem; margin-bottom: 2rem;
+        }
+        .ds-spec-row {
+            display: flex; align-items: center; padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(244, 224, 176, 0.08);
+        }
+        .ds-spec-row:last-child { border-bottom: none; }
+        .ds-spec-name {
+            flex: 0 0 200px; font-size: 0.85rem; color: var(--dourado-accent);
+            font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-family: var(--font-body);
+        }
+        .ds-spec-preview { flex: 1; padding: 0 2rem; }
+        .ds-spec-value {
+            flex: 0 0 150px; text-align: right; font-size: 0.85rem;
+            color: var(--cinza-text); font-family: monospace;
+        }
+        .ds-color-swatch {
+            width: 100%; height: 90px; border-radius: 12px; margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .ds-state-label {
+            font-size: 0.75rem; color: var(--cinza-text); text-align: center; margin-top: 1rem;
+            font-family: var(--font-body); letter-spacing: 1px;
+        }
+        .ds-component-display { display: flex; flex-direction: column; align-items: center; justify-content: flex-end;}
+    </style>
+</head>
+<body>
+
+
+    <!-- ==================== TOP NAV ==================== -->
+    <nav class="ds-nav flex items-center">
+        <div class="max-w-[1400px] w-full mx-auto px-8 flex justify-between items-center">
+            <div class="font-display font-semibold text-xl text-white tracking-widest uppercase flex items-center gap-3">
+                <i data-lucide="scale" class="text-[#d4b96a]"></i>
+                Kuntz System
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-body font-medium text-[#b0ada5]">
+                <a href="#hero" class="hover:text-white transition-colors">Hero</a>
+                <a href="#typography" class="hover:text-white transition-colors">Typography</a>
+                <a href="#colors" class="hover:text-white transition-colors">Colors</a>
+                <a href="#components" class="hover:text-white transition-colors">Components</a>
+                <a href="#layout" class="hover:text-white transition-colors">Layout</a>
+                <a href="#motion" class="hover:text-white transition-colors">Motion</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO CLONE ==================== -->
+    <!-- Replicating the Hero section styling exactly from Kuntz LP -->
+    <section id="hero" class="relative min-h-screen flex items-center overflow-hidden" style="margin-top: 72px; padding: 120px 0 80px; background: radial-gradient(ellipse at 80% 20%, rgba(27, 56, 32, 0.6) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(244, 224, 176, 0.03) 0%, transparent 40%); background-color: #1C1C1C;">
+        <div class="max-w-[1200px] mx-auto px-6 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+                <div>
+                    <div class="section-label animate-on-scroll">O Padrão Ouro em Design</div>
+                    <h1 class="hero-headline font-display text-white mb-6 leading-tight animate-on-scroll" style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 500; transition-delay: 200ms;" id="hero-title">
+                        Um sistema construído para <em>autoridade e impacto.</em>
+                    </h1>
+                    <p class="font-body text-[#b0ada5] text-lg leading-relaxed mb-10 max-w-[540px] font-light animate-on-scroll" style="transition-delay: 400ms;">
+                        O Design System unifica os guias visuais da advocacia de alta complexidade com os padrões de micro-interações e efeitos coreográficos de interfaces imersivas modernas.
+                    </p>
+                    <div class="flex flex-wrap gap-4 animate-on-scroll" style="transition-delay: 600ms;">
+                        <!-- New Glow Button Integration -->
+                        <button class="btn-glow" style="margin-right: 16px;">Explorar</button>
+                        <a href="#typography" class="btn-secondary">Ver Tipografia</a>
+                    </div>
+                </div>
+                <!-- Abstract visual representation -->
+                <div class="animate-on-scroll" style="transition-delay: 800ms;">
+                    <div class="grid grid-cols-2 gap-0 border border-[rgba(244,224,176,0.1)] bg-[rgba(28,28,28,0.5)] backdrop-blur-md">
+                        <div class="p-8 text-center border-r border-b border-[rgba(244,224,176,0.08)]">
+                            <div class="font-display text-4xl font-semibold text-[#F4E0B0] mb-2 leading-none">Aa</div>
+                            <div class="font-body text-[0.65rem] uppercase tracking-widest text-[#b0ada5] font-medium">Cinzel / Montserrat</div>
+                        </div>
+                        <div class="p-8 text-center border-b border-[rgba(244,224,176,0.08)]">
+                            <div class="font-display text-4xl font-semibold text-[#F4E0B0] mb-2 leading-none">24px</div>
+                            <div class="font-body text-[0.65rem] uppercase tracking-widest text-[#b0ada5] font-medium">Grid Base</div>
+                        </div>
+                        <div class="p-8 text-center border-r border-[rgba(244,224,176,0.08)]">
+                            <div class="font-display text-4xl font-semibold text-[#F4E0B0] mb-2 leading-none">12+</div>
+                            <div class="font-body text-[0.65rem] uppercase tracking-widest text-[#b0ada5] font-medium">Componentes Originais</div>
+                        </div>
+                        <div class="p-8 text-center">
+                            <div class="font-display text-4xl font-semibold text-[#F4E0B0] mb-2 leading-none">60fps</div>
+                            <div class="font-body text-[0.65rem] uppercase tracking-widest text-[#b0ada5] font-medium">Coreografia CSS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Shadow Bottom -->
+        <div class="absolute bottom-0 left-0 w-full h-[200px] bg-gradient-to-t from-[#1C1C1C] to-transparent pointer-events-none z-0"></div>
+    </section>
+
+    <!-- ==================== TYPOGRAPHY ==================== -->
+    <section id="typography" class="ds-section">
+        <h2 class="ds-section-title-doc">Typography</h2>
+        <div class="ds-card">
+            <div class="ds-spec-row">
+                <div class="ds-spec-name">Hero Headline</div>
+                <div class="ds-spec-preview">
+                    <h1 class="hero-headline" style="margin-bottom: 0;">Quando o caso é grande, o erro é <em>irreversível.</em></h1>
+                </div>
+                <div class="ds-spec-value">~51px / 1.2</div>
+            </div>
+
+            <div class="ds-spec-row">
+                <div class="ds-spec-name">Section Title</div>
+                <div class="ds-spec-preview">
+                    <h2 class="section-title" style="margin-bottom: 0;">Identifique o seu cenário</h2>
+                </div>
+                <div class="ds-spec-value">~44px / 1.25</div>
+            </div>
+
+            <div class="ds-spec-row">
+                <div class="ds-spec-name">Scenario Title</div>
+                <div class="ds-spec-preview">
+                    <h3 class="font-display" style="font-size: 1.05rem; font-weight: 600; color: var(--dourado);">Caso em tribunal superior</h3>
+                </div>
+                <div class="ds-spec-value">16.8px / 1.4</div>
+            </div>
+
+            <div class="ds-spec-row">
+                <div class="ds-spec-name">Hero Sub</div>
+                <div class="ds-spec-preview">
+                    <p class="font-body" style="font-size: 1.05rem; font-weight: 300; color: var(--cinza-text);">Se você ou alguém próximo enfrenta uma investigação...</p>
+                </div>
+                <div class="ds-spec-value">16.8px / 1.8</div>
+            </div>
+
+            <div class="ds-spec-row">
+                <div class="ds-spec-name">Body Paragraph</div>
+                <div class="ds-spec-preview">
+                    <p class="font-body" style="font-size: 0.95rem; font-weight: 300; color: var(--cinza-text);">Atuamos exclusivamente em casos de alta complexidade. Se o seu caso envolve...</p>
+                </div>
+                <div class="ds-spec-value">15.2px / 1.7</div>
+            </div>
+
+            <div class="ds-spec-row">
+                <div class="ds-spec-name">Section Label</div>
+                <div class="ds-spec-preview">
+                    <span class="section-label" style="margin-bottom: 0;">Para quem atuamos</span>
+                </div>
+                <div class="ds-spec-value">11.2px / 4px Spacing</div>
+            </div>
+
+            <div class="ds-spec-row">
+                <div class="ds-spec-name">Form Label</div>
+                <div class="ds-spec-preview">
+                    <label class="font-body" style="font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cinza-text);">Nome Completo</label>
+                </div>
+                <div class="ds-spec-value">11.5px / 2px Spacing</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== COLORS & SURFACES ==================== -->
+    <section id="colors" class="ds-section">
+        <h2 class="ds-section-title-doc">Colors & Surfaces</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div>
+                <h3 class="font-display text-[#F4E0B0] text-xl mb-6">Tons Principais (Verdes)</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="ds-color-swatch" style="background: var(--verde);"></div>
+                        <p class="font-body font-semibold text-sm">Verde Institucional</p>
+                        <p class="font-mono text-xs text-[#b0ada5]">#1B3820</p>
+                    </div>
+                    <div>
+                        <div class="ds-color-swatch" style="background: var(--verde-dark);"></div>
+                        <p class="font-body font-semibold text-sm">Verde Profundo (Dark)</p>
+                        <p class="font-mono text-xs text-[#b0ada5]">#0f2214</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-display text-[#F4E0B0] text-xl mb-6">Tons de Acento (Dourados)</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="ds-color-swatch" style="background: var(--dourado-accent);"></div>
+                        <p class="font-body font-semibold text-sm">Dourado Acento (Ações)</p>
+                        <p class="font-mono text-xs text-[#b0ada5]">#d4b96a</p>
+                    </div>
+                    <div>
+                        <div class="ds-color-swatch" style="background: var(--dourado);"></div>
+                        <p class="font-body font-semibold text-sm">Dourado Títulos</p>
+                        <p class="font-mono text-xs text-[#b0ada5]">#F4E0B0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-display text-[#F4E0B0] text-xl mb-6">Bases & Backgrounds</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="ds-color-swatch" style="background: var(--escuro);"></div>
+                        <p class="font-body font-semibold text-sm">Fundo Escuro Master</p>
+                        <p class="font-mono text-xs text-[#b0ada5]">#1C1C1C</p>
+                    </div>
+                    <div>
+                        <div class="ds-color-swatch" style="background: var(--escuro-soft);"></div>
+                        <p class="font-body font-semibold text-sm">Escuro Suave (Surfaces)</p>
+                        <p class="font-mono text-xs text-[#b0ada5]">#2a2a2a</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="font-display text-[#F4E0B0] text-xl mb-6 border-t border-[rgba(244,224,176,0.08)] pt-8">Surface Treatments & Borders</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="scenario-card flex flex-col justify-center h-[200px]">
+                <h4 class="font-display text-[#F4E0B0] text-lg mb-2">Card Gradient</h4>
+                <p class="font-mono text-xs text-[#b0ada5] mb-2">linear-gradient(145deg, rgba(27, 56, 32, 0.15), rgba(28, 28, 28, 0.8))</p>
+                <p class="font-body text-sm font-light text-[var(--cinza-text)]">Acompanhado de border 1px solid rgba(244, 224, 176, 0.08)</p>
+            </div>
+
+            <div class="bg-transparent flex flex-col justify-center h-[200px]">
+                <h4 class="font-display text-[#F4E0B0] text-lg mb-4">Gold Line Divider</h4>
+                <div class="gold-line"></div>
+                <p class="font-mono text-xs text-[#b0ada5] mb-2">linear-gradient(90deg, var(--dourado-accent), transparent)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== UI COMPONENTS ==================== -->
+    <section id="components" class="ds-section">
+        <h2 class="ds-section-title-doc">UI Components</h2>
+        
+        <h3 class="font-display text-[#F4E0B0] text-xl mb-6">Botões</h3>
+        <div class="ds-card min-h-[220px] flex items-center justify-center">
+            <div class="flex flex-wrap items-end gap-12">
+                <div class="ds-component-display">
+                    <button class="btn-primary" style="pointer-events: none;">Avaliar Meu Caso →</button>
+                    <div class="ds-state-label">Primary (Default / Hover)</div>
+                </div>
+
+                <div class="ds-component-display">
+                    <button class="btn-secondary" style="pointer-events: none;">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+                    </button>
+                    <div class="ds-state-label">Secondary (Default / Hover)</div>
+                </div>
+                
+                <div class="ds-component-display">
+                    <button class="btn-glow" style="margin-bottom: 24px;">Glow FX</button>
+                    <div class="ds-state-label">Glow Button (Hover)</div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="font-display text-[#F4E0B0] text-xl mb-6 mt-12">Cards e Superfícies</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Scenario Card Original -->
+            <div class="scenario-card">
+                <span style="font-size: 1.6rem; margin-bottom: 20px; display: block;">🏛️</span>
+                <h3 class="font-display" style="font-size: 1.05rem; font-weight: 600; color: var(--dourado); margin-bottom: 12px;">Caso em tribunal superior</h3>
+                <p class="font-body" style="font-size: 0.88rem; font-weight: 300; color: var(--cinza-text);">Sustentações orais no STF, STJ e tribunais federais. Recursos especiais com técnica profunda. Interaja par ver Efeito.</p>
+            </div>
+
+            <!-- Form Inputs -->
+            <div class="bg-[rgba(28,28,28,0.6)] border border-[rgba(244,224,176,0.08)] p-8">
+                <div class="form-group mb-6">
+                    <label style="display:block; margin-bottom: 6px;">Input Field Default</label>
+                    <input type="text" placeholder="Seu nome" disabled>
+                </div>
+                <div class="form-group">
+                    <label style="display:block; margin-bottom: 6px;">Input Field Focus</label>
+                    <input type="text" placeholder="Focado" style="border-color: var(--dourado-accent);" disabled>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ==================== LAYOUT & SPACING ==================== -->
+    <section id="layout" class="ds-section">
+        <h2 class="ds-section-title-doc">Layout & Spacing</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="ds-card">
+                <h3 class="font-display text-[#F4E0B0] text-xl mb-4">Grid System</h3>
+                <p class="font-body text-sm font-light text-[var(--cinza-text)] mb-6">A malha usa abordagens puras de gap baseadas em <code>16px</code>, <code>48px</code> ou <code>64px</code> para respiros de alta classe.</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-[var(--escuro)] border border-[rgba(244,224,176,0.1)] h-[80px] flex items-center justify-center text-xs text-[#b0ada5]">Grid Item</div>
+                    <div class="bg-[var(--escuro)] border border-[rgba(244,224,176,0.1)] h-[80px] flex items-center justify-center text-xs text-[#b0ada5]">Grid Item</div>
+                </div>
+            </div>
+
+            <div class="ds-card">
+                <h3 class="font-display text-[#F4E0B0] text-xl mb-4">Headings Clássicos</h3>
+                <p class="font-body text-sm font-light text-[var(--cinza-text)] mb-6">A estrutura de chamada para toda seção importante exige a trinca:</p>
+                <div style="background: var(--escuro); padding: 24px; border: 1px dotted rgba(244,224,176,0.2);">
+                    <span class="section-label" style="margin-bottom: 16px;">Step 1: The Tag</span>
+                    <h2 class="section-title" style="margin-bottom: 24px; font-size: 2rem;">Step 2: The Title</h2>
+                    <div class="gold-line" style="margin-bottom: 0;"></div>
+                    <p class="mt-4 text-[10px] uppercase text-[#b0ada5]">Step 3: The Divider</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MOTION & INTERACTION ==================== -->
+    <section id="motion" class="ds-section">
+        <h2 class="ds-section-title-doc">Motion & Interaction</h2>
+        
+        <p class="font-body text-[#b0ada5] mb-8 max-w-2xl">Os efeitos extraídos conferem fluidez, indicando áreas de resposta sem pesar o visual sério do design. Interaja com as caixas abaixo para presenciar a mágica.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Scroll Reveal Replay -->
+            <div class="ds-card relative flex flex-col justify-center min-h-[250px] overflow-hidden">
+                <div class="absolute top-4 right-4"><i data-lucide="mouse-pointer-2" class="text-[#d4b96a] w-5 h-5"></i></div>
+                <h3 class="font-display text-white text-lg mb-2">Scroll Reveal Engine</h3>
+                <p class="font-body text-xs text-[#b0ada5] mb-6">Fade + Blur(10px -> 0) + Transform Y(20px -> 0)</p>
+                
+                <button onclick="replayScroll()" class="text-xs uppercase tracking-widest border border-white/20 px-3 py-1 mb-4 w-fit hover:bg-white/10 transition">Replay Effect</button>
+                <div id="demo-scroll" class="animate-on-scroll bg-[rgba(244,224,176,0.1)] p-4 border border-[rgba(244,224,176,0.2)]">
+                    <p class="text-sm font-body font-light">Este elemento simula a entrada em cena no viewport.</p>
+                </div>
+            </div>
+
+            <!-- Text Reveal Replay -->
+            <div class="ds-card relative flex flex-col justify-center min-h-[250px]" id="text-reveal-container">
+                <h3 class="font-display text-white text-lg mb-2">Text Reveal (Clip Path)</h3>
+                <p class="font-body text-xs text-[#b0ada5] mb-6">Divisão por Spans + Mask Animada Staggered</p>
+                
+                <button onclick="replayText()" class="text-xs uppercase tracking-widest border border-white/20 px-3 py-1 mb-4 w-fit hover:bg-white/10 transition">Replay Effect</button>
+                <h1 class="font-display text-3xl text-[#F4E0B0]" id="demo-title">Design System</h1>
+            </div>
+
+            <!-- Flashlight Card -->
+            <div class="ds-card flashlight-card p-10 min-h-[250px] cursor-default col-span-1 md:col-span-2 flex flex-col items-center justify-center text-center">
+                <div class="flashlight-border"></div>
+                <div class="relative z-10">
+                    <i data-lucide="zap" class="text-white w-8 h-8 mb-4 mx-auto"></i>
+                    <h3 class="font-display text-xl text-white mb-2">Passe o mouse por toda a área</h3>
+                    <p class="font-body text-sm text-[var(--cinza-text)] max-w-sm">O container global mapeia as variáveis CSS <code>--mouse-x</code> e <code>--mouse-y</code> injetadas via JS num Radial Gradient (XOR Compose com máscara).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Scripts for the Document -->
+    <script>
+        lucide.createIcons();
+
+        // 1. Setup Text Reveal Demo
+        function replayText() {
+            const title = document.getElementById('demo-title');
+            const originalText = "Design System";
+            title.innerHTML = '';
+            
+            const chars = originalText.split('');
+            chars.forEach((char, index) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.className = 'char';
+                span.style.transitionDelay = `${index * 50}ms`;
+                if (char === ' ') span.style.marginRight = '0.3em';
+                title.appendChild(span);
+            });
+
+            // Trigger reflow
+            void title.offsetWidth;
+
+            setTimeout(() => {
+                document.querySelectorAll('#demo-title .char').forEach(c => c.classList.add('revealed'));
+            }, 50);
+        }
+        
+        // Auto-run once
+        replayText();
+
+        // 2. Setup Scroll Reveal Demo
+        function replayScroll() {
+            const el = document.getElementById('demo-scroll');
+            el.classList.remove('in-view');
+            
+            // Trigger reflow
+            void el.offsetWidth;
+            
+            setTimeout(() => {
+                el.classList.add('in-view');
+            }, 100);
+        }
+
+        // 3. Setup General Intersection Observer for the page
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // 4. Flashlight Effect Logic
+        document.querySelectorAll('.flashlight-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+    </script>
+</body>
+</html>

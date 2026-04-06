@@ -1,0 +1,87 @@
+/* ========== CSS VARIABLES ========== */
+        :root {
+            --verde: #1B3820;
+            --verde-light: #264d2e;
+            --verde-dark: #0f2214;
+            --dourado: #F4E0B0;
+            --dourado-dark: #B2A886;
+            --dourado-accent: #d4b96a;
+            --escuro: #1C1C1C;
+            --escuro-soft: #2a2a2a;
+            --branco: #f8f6f1;
+            --branco-puro: #ffffff;
+            --cinza-text: #b0ada5;
+            --cinza-light: #e8e4dc;
+            --font-display: 'Cinzel', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        /* ========== RESET & BASE ========== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--branco);
+            background-color: var(--escuro);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        /* ========== UTILITY ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--dourado-accent);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 500;
+            color: var(--branco);
+            line-height: 1.25;
+            margin-bottom: 24px;
+        }
+
+        .gold-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--dourado-accent), transparent);
+            margin-bottom: 32px;
+        }
+
+        

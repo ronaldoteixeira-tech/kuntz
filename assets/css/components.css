@@ -1,0 +1,169 @@
+/* ========== NEXT-GEN UI ========== */
+        .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .char.revealed {
+            opacity: 1;
+            transform: translateY(0);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .animate-on-scroll {
+            opacity: 0.01;
+            filter: blur(10px);
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-on-scroll.in-view,
+        .animate-on-scroll.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+
+        .btn-glow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 36px;
+            background: var(--escuro);
+            color: var(--dourado);
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            outline: none;
+            text-decoration: none;
+        }
+
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            aspect-ratio: 1 / 1;
+            background: conic-gradient(from 0deg, transparent 70%, var(--dourado-accent) 100%);
+            transform: translate(-50%, -50%);
+            animation: rotate-border 3s linear infinite;
+            z-index: -2;
+        }
+
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            background: var(--escuro);
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .btn-glow:hover {
+            color: var(--escuro);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(212, 185, 106, 0.2);
+        }
+
+        .btn-glow:hover::after {
+            background: var(--dourado-accent);
+        }
+
+        @keyframes rotate-border {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .flashlight-card {
+            position: relative;
+            background-color: rgba(23, 23, 23, 0.4) !important;
+            border: 1px solid rgba(244, 224, 176, 0.08);
+            overflow: hidden;
+        }
+
+        .flashlight-card::before {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            border-radius: inherit;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212, 185, 106, 0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .flashlight-border {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212, 185, 106, 0.6), transparent 40%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .flashlight-card:hover::before,
+        .flashlight-card:hover .flashlight-border {
+            opacity: 1;
+        }
+
+        .flashlight-card>* {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ========== WHATSAPP FLOAT ========== */
+        .wpp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .wpp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 28px rgba(37, 211, 102, 0.4);
+        }
+
+        .wpp-float svg {
+            width: 28px;
+            height: 28px;
+            fill: #fff;
+        }
+
+        

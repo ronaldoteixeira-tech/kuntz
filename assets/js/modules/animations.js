@@ -30,13 +30,25 @@
                     let textContent = node.nodeValue.replace(/[\r\n\t]+/g, ' ').replace(/\s{2,}/g, ' ');
                     if (node === node.parentNode.firstChild) textContent = textContent.trimStart();
                     if (node === node.parentNode.lastChild) textContent = textContent.trimEnd();
-                    const chars = textContent.split('');
-                    chars.forEach(char => {
-                        const span = document.createElement('span');
-                        span.className = 'char';
-                        if (char === ' ') span.style.marginRight = '0.3em';
-                        span.textContent = char;
-                        frag.appendChild(span);
+                    const words = textContent.split(/(\s+)/);
+                    words.forEach(word => {
+                        if (word.trim().length === 0) {
+                            // Preserve spaces
+                            frag.appendChild(document.createTextNode(word));
+                        } else {
+                            // Wrap words in a span to prevent breaking
+                            const wordSpan = document.createElement('span');
+                            wordSpan.className = 'word';
+                            
+                            const chars = word.split('');
+                            chars.forEach(char => {
+                                const span = document.createElement('span');
+                                span.className = 'char';
+                                span.textContent = char;
+                                wordSpan.appendChild(span);
+                            });
+                            frag.appendChild(wordSpan);
+                        }
                     });
                     node.parentNode.replaceChild(frag, node);
                 } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {

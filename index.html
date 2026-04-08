@@ -12,7 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-        <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/layout.css">
     <link rel="stylesheet" href="./assets/css/components.css">
     <link rel="stylesheet" href="./assets/css/animations.css">
@@ -25,7 +25,8 @@
     <nav class="nav-bar">
         <div class="container nav-inner">
             <a href="#">
-                <img src="logo-kuntz.png" alt="Kuntz Advocacia e Consultoria Jurídica" class="nav-logo-img">
+                <img src="./assets/images/logo-kuntz.png" alt="Kuntz Advocacia e Consultoria Jurídica"
+                    class="nav-logo-img">
             </a>
             <div class="nav-phone">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -95,7 +96,14 @@
                         </span>
                     </div>
                 </div>
-                <div>
+                <div class="hero-visual-wrapper">
+                    <div class="hero-video-box">
+                        <video autoplay muted loop playsinline class="hero-featured-video">
+                            <source src="./assets/videos/kuntz-hero-video.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay-gold"></div>
+                    </div>
+
                     <div class="hero-stats">
                         <div class="stat-item">
                             <div class="stat-number">40+</div>
@@ -119,13 +127,27 @@
     <section class="credibility">
         <div class="container">
             <div class="credibility-inner">
-                <span class="credibility-text">Presente na mídia nacional</span>
-                <div class="media-logos">
-                    <span class="media-logo">VEJA</span>
-                    <span class="media-logo">GLOBO</span>
-                    <span class="media-logo">CNN BRASIL</span>
-                    <span class="media-logo">METRÓPOLES</span>
-                    <span class="media-logo">MIGALHAS</span>
+                <div class="media-logos-track">
+                    <!-- Conjunto 1 -->
+                    <img src="./assets/images/vJ-logo-final.png" alt="VEJA" class="media-logo-img">
+                    <img src="./assets/images/globo.svg" alt="GLOBO" class="media-logo-img">
+                    <img src="./assets/images/cnn.png" alt="CNN Brasil" class="media-logo-img">
+                    <img src="./assets/images/metropoles.png" alt="Metrópoles" class="media-logo-img">
+                    <img src="./assets/images/migalhas.png" alt="Migalhas" class="media-logo-img">
+                    
+                    <!-- Conjunto 2 (Duplicado para loop) -->
+                    <img src="./assets/images/vJ-logo-final.png" alt="VEJA" class="media-logo-img">
+                    <img src="./assets/images/globo.svg" alt="GLOBO" class="media-logo-img">
+                    <img src="./assets/images/cnn.png" alt="CNN Brasil" class="media-logo-img">
+                    <img src="./assets/images/metropoles.png" alt="Metrópoles" class="media-logo-img">
+                    <img src="./assets/images/migalhas.png" alt="Migalhas" class="media-logo-img">
+
+                    <!-- Conjunto 3 -->
+                    <img src="./assets/images/veja-brand.png" alt="VEJA" class="media-logo-img no-filter">
+                    <img src="./assets/images/globo.svg" alt="GLOBO" class="media-logo-img">
+                    <img src="./assets/images/cnn.png" alt="CNN Brasil" class="media-logo-img">
+                    <img src="./assets/images/metropoles.png" alt="Metrópoles" class="media-logo-img">
+                    <img src="./assets/images/migalhas.png" alt="Migalhas" class="media-logo-img">
                 </div>
             </div>
         </div>
@@ -135,12 +157,12 @@
     <section class="scenarios" id="atuacao">
         <div class="container">
             <div class="scenarios-header fade-in">
-                <span class="section-label">Para quem atuamos</span>
-                <h2 class="section-title">Identifique o seu cenário</h2>
+                <span class="section-label">Para quem Atuamos</span>
+                <h2 class="section-title">Em casos penais de grande porte, decisões erradas não têm volta</h2>
                 <div class="gold-line" style="margin: 0 auto 24px;"></div>
                 <p style="color: var(--cinza-text); font-weight: 300; font-size: 0.95rem;">
-                    Atuamos exclusivamente em casos de alta complexidade. Se o seu caso envolve qualquer uma das
-                    situações abaixo, podemos ajudar.
+                    Processos criminais envolvendo pessoas com alto poder aquisitivo exigem preparo técnico,
+                    estratégia e atuação precisa em momentos decisivos.
                 </p>
             </div>
 
@@ -156,9 +178,10 @@
                 <div class="scenario-card flashlight-card fade-in">
                     <div class="flashlight-border"></div>
                     <span class="scenario-icon">🏛️</span>
-                    <h3 class="scenario-title">Caso em tribunal superior</h3>
-                    <p class="scenario-desc">Sustentações orais no STF, STJ e tribunais federais. Recursos especiais e
-                        extraordinários com estratégia técnica aprofundada.</p>
+                    <h3 class="scenario-title">SUSTENTAÇÕES ORAIS EM TRIBUNAIS SUPERIORES</h3>
+                    <p class="scenario-desc">Quando a decisão está nas mãos do tribunal, conhecer as pessoas certas e
+                        ter uma boa sustentação oral é fundamental. A sustentação oral é um dos momentos mais decisivos
+                        do processo penal.</p>
                 </div>
 
                 <div class="scenario-card flashlight-card fade-in">
@@ -275,106 +298,6 @@
                             técnico e acompanhamento processual.
                         </p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== MEDIA CAROUSEL ==================== -->
-    <section class="media-section" id="midia">
-        <div class="container">
-            <div class="media-header fade-in">
-                <span class="section-label">Presente na mídia nacional</span>
-                <h2 class="section-title">Atuação em casos de repercussão nacional</h2>
-                <div class="gold-line" style="margin: 0 auto 24px;"></div>
-            </div>
-
-            <div class="carousel-wrapper fade-in">
-                <div class="carousel-track" id="carouselTrack">
-                    <!-- Slide 1 -->
-                    <div class="carousel-slide">
-                        <a href="https://veja.abril.com.br/politica/mauro-cid-os-avancos-no-caso-das-mensagens-apos-revelacoes-de-veja/"
-                            target="_blank" rel="noopener" class="media-card">
-                            <div>
-                                <div class="media-source">VEJA</div>
-                                <div class="media-title">Mauro Cid: os avanços no caso das mensagens após revelações de
-                                    VEJA</div>
-                            </div>
-                            <span class="media-link">Ver matéria →</span>
-                        </a>
-
-                        <a href="https://g1.globo.com/politica/blog/natuza-nery/post/2024/05/16/marcelo-camara-ex-assessor-de-bolsonaro-sai-da-prisao.ghtml"
-                            target="_blank" rel="noopener" class="media-card">
-                            <div>
-                                <div class="media-source">G1 / GLOBO</div>
-                                <div class="media-title">Marcelo Câmara, ex-assessor de Bolsonaro, deixa prisão após
-                                    ordem de Moraes</div>
-                            </div>
-                            <span class="media-link">Ver matéria →</span>
-                        </a>
-
-                        <a href="https://www.cnnbrasil.com.br/blogs/basilia-rodrigues/politica/advogado-de-ex-assessor-de-moraes-tambem-defende-entorno-de-bolsonaro-na-justica/"
-                            target="_blank" rel="noopener" class="media-card">
-                            <div>
-                                <div class="media-source">CNN Brasil</div>
-                                <div class="media-title">Advogado de ex-assessor de Moraes também defende entorno de
-                                    Bolsonaro na Justiça</div>
-                            </div>
-                            <span class="media-link">Ver matéria →</span>
-                        </a>
-                    </div>
-
-                    <!-- Slide 2 -->
-                    <div class="carousel-slide">
-                        <a href="https://g1.globo.com/rj/rio-de-janeiro/noticia/2023/05/12/pf-faz-buscas-contra-ex-funcionario-da-presidencia.ghtml"
-                            target="_blank" rel="noopener" class="media-card">
-                            <div>
-                                <div class="media-source">G1 / GLOBO</div>
-                                <div class="media-title">Caso das joias: PF apreende celular de chefe do setor de
-                                    presentes da Presidência</div>
-                            </div>
-                            <span class="media-link">Ver matéria →</span>
-                        </a>
-
-                        <a href="https://www.metropoles.com/brasil/defesa-de-tagliaferro-pede-a-fachin-revisao-de-decisoes-de-moraes"
-                            target="_blank" rel="noopener" class="media-card">
-                            <div>
-                                <div class="media-source">Metrópoles</div>
-                                <div class="media-title">Defesa de Tagliaferro pede a Fachin revisão de decisões de
-                                    Moraes</div>
-                            </div>
-                            <span class="media-link">Ver matéria →</span>
-                        </a>
-
-                        <a href="https://www.migalhas.com.br/quentes/432943/advogado-de-reu-por-golpe-pede-anulacao-da-delacao-de-cid"
-                            target="_blank" rel="noopener" class="media-card">
-                            <div>
-                                <div class="media-source">Migalhas</div>
-                                <div class="media-title">Advogado de réu por golpe pede anulação da delação de Cid e
-                                    mostra mensagens</div>
-                            </div>
-                            <span class="media-link">Ver matéria →</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="carousel-controls">
-                    <button class="carousel-btn" id="carouselPrev" aria-label="Anterior">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <polyline points="15 18 9 12 15 6" />
-                        </svg>
-                    </button>
-                    <div class="carousel-dots" id="carouselDots">
-                        <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
-                        <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
-                    </div>
-                    <button class="carousel-btn" id="carouselNext" aria-label="Próximo">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <polyline points="9 18 15 12 9 6" />
-                        </svg>
-                    </button>
                 </div>
             </div>
         </div>
@@ -548,7 +471,8 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <img src="logo-kuntz.png" alt="Kuntz Advocacia e Consultoria Jurídica" class="footer-logo-img">
+                    <img src="./assets/images/logo-kuntz.png" alt="Kuntz Advocacia e Consultoria Jurídica"
+                        class="footer-logo-img">
                     <p class="footer-desc" style="margin-top: 16px;">
                         Mais de quatro décadas de atuação em advocacia criminal de alta complexidade. Escritório
                         boutique com atendimento personalizado e presença nos principais tribunais do país.
@@ -596,7 +520,7 @@
     </a>
 
     <!-- ==================== SCRIPTS ==================== -->
-        <script type="module" src="./assets/js/main.js"></script>
+    <script type="module" src="./assets/js/main.js"></script>
 
 
 </body>

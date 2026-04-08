@@ -12,8 +12,6 @@
         }
 
         .fade-in {
-            opacity: 0;
-            transform: translateY(24px);
             transition: all 0.7s ease;
         }
 
@@ -22,4 +20,24 @@
             transform: translateY(0);
         }
 
+
+        /* ========== CONTINUOUS MARQUEE ========== */
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
         
+        .media-logos-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 30s linear infinite;
+            gap: 60px;
+        }
+
+        .media-logos-track:hover {
+            animation-play-state: paused;
+        }

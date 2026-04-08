@@ -75,6 +75,9 @@
             color: var(--branco);
             line-height: 1.25;
             margin-bottom: 24px;
+            text-wrap: balance;
+            word-break: keep-all;
+            overflow-wrap: normal;
         }
 
         .gold-line {

@@ -860,23 +860,19 @@
 /* ========== TIMELINE / URGENCY ========== */
 .urgency {
     padding: 100px 0 120px;
-    background: linear-gradient(165deg, var(--verde) 0%, var(--verde-dark) 100%);
+    background: url('../images/K2.png') no-repeat center center;
+    background-size: cover;
     position: relative;
     overflow: hidden;
 }
 
 
 
+
 .urgency::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(244, 224, 176, 0.04) 0%, transparent 70%);
-    pointer-events: none;
+    display: none;
 }
+
 
 
 

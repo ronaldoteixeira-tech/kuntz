@@ -29,11 +29,6 @@
                     class="nav-logo-img">
             </a>
             <div class="nav-phone">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path
-                        d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-                </svg>
-                +55 (11) 5534-4444
             </div>
             <a href="#contato" class="nav-cta">Fale Conosco</a>
         </div>
@@ -134,7 +129,7 @@
                     <img src="./assets/images/cnn.png" alt="CNN Brasil" class="media-logo-img">
                     <img src="./assets/images/metropoles.png" alt="Metrópoles" class="media-logo-img">
                     <img src="./assets/images/migalhas.png" alt="Migalhas" class="media-logo-img">
-                    
+
                     <!-- Conjunto 2 (Duplicado para loop) -->
                     <img src="./assets/images/vJ-logo-final.png" alt="VEJA" class="media-logo-img">
                     <img src="./assets/images/globo.svg" alt="GLOBO" class="media-logo-img">
@@ -219,29 +214,73 @@
         </div>
     </section>
 
-    <!-- ==================== AUTHORITY ==================== -->
     <section class="authority" id="escritorio">
         <div class="container">
             <div class="authority-grid">
-                <div class="authority-text fade-in">
+                <div class="authority-content fade-in">
                     <span class="section-label">O Escritório</span>
                     <h2 class="section-title">Quatro décadas. Duas gerações. Uma especialidade: encontrar soluções.</h2>
                     <div class="gold-line"></div>
-                    <p>
-                        O <strong>Kuntz Advocacia e Consultoria Jurídica</strong> é um escritório no verdadeiro estilo
-                        boutique, com mais de 40 anos de atuação. Formado por uma equipe entrosada com sólida formação e
-                        experiência comprovada em casos de alta complexidade.
-                    </p>
-                    <p>
-                        Sob a coordenação de <strong>Eduardo Kuntz</strong> na área criminal, o escritório se consolidou
-                        como referência na defesa de casos que exigem alto nível técnico, conhecimento profundo da
-                        jurisprudência e presença nos tribunais superiores do país.
-                    </p>
-                    <p>
-                        A atuação dedicada e personalizada ao longo de décadas, com a evolução de duas gerações
-                        dedicadas ao Direito, é reconhecida por clientes que confiam ao escritório suas questões mais
-                        sensíveis.
-                    </p>
+                    <div class="authority-description">
+                        <p>
+                            O <strong>Kuntz Advocacia e Consultoria Jurídica</strong> é um escritório no verdadeiro
+                            estilo
+                            boutique, com mais de 40 anos de atuação. Formado por uma equipe entrosada com sólida
+                            formação e
+                            experiência comprovada em casos de alta complexidade.
+                        </p>
+                        <p>
+                            Sob a coordenação de <strong>Eduardo Kuntz</strong> na área criminal, o escritório se
+                            consolidou
+                            como referência na defesa de casos que exigem alto nível técnico, conhecimento profundo da
+                            jurisprudência e presença nos tribunais superiores do país.
+                        </p>
+                        <p>
+                            A atuação dedicada e personalizada ao longo de décadas, com a evolução de duas gerações
+                            dedicadas ao Direito, é reconhecida por clientes que confiam ao escritório suas questões
+                            mais
+                            sensíveis.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="authority-media-column fade-in">
+                    <div class="office-carousel-wrapper">
+                        <div class="office-carousel" id="officeCarousel">
+                            <div class="office-slides-track">
+                                <div class="office-slide active">
+                                    <img src="./assets/images/escritorio-01.jpg" alt="Fachada Kuntz Advocacia">
+                                </div>
+                                <div class="office-slide">
+                                    <img src="./assets/images/escritorio-02.jpg" alt="Recepção">
+                                </div>
+                                <div class="office-slide">
+                                    <img src="./assets/images/escritorio-03.jpg" alt="Sala de Reunião">
+                                </div>
+                                <div class="office-slide">
+                                    <img src="./assets/images/escritorio-04.jpg" alt="Ambiente Interno">
+                                </div>
+                                <div class="office-slide">
+                                    <img src="./assets/images/escritorio-05.png" alt="Equipe Kuntz">
+                                </div>
+                            </div>
+
+                            <div class="office-carousel-nav">
+                                <button class="carousel-nav-btn prev" id="officePrev" aria-label="Imagem anterior">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                                    </svg>
+                                </button>
+                                <button class="carousel-nav-btn next" id="officeNext" aria-label="Próxima imagem">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="office-carousel-dots" id="officeDots"></div>
+                        </div>
+                    </div>
 
                     <div class="authority-features">
                         <div class="auth-feature">
@@ -260,43 +299,6 @@
                             <div class="auth-feature-number">24h</div>
                             <div class="auth-feature-text">Atendimento emergencial</div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="fade-in">
-                    <span class="section-label">Equipe Principal</span>
-                    <h3
-                        style="font-family: var(--font-display); font-size: 1.3rem; color: var(--branco); margin-bottom: 32px;">
-                        Advogados Sócios</h3>
-                    <ul class="team-list">
-                        <li>
-                            <span class="team-name">Eduardo Kuntz</span>
-                            <span class="team-role">Sócio, Coordenador da área Criminal</span>
-                            <span class="team-desc">Responsável pela atuação em defesas criminais de alta complexidade,
-                                com experiência em tribunais superiores e casos de repercussão nacional.</span>
-                        </li>
-                        <li>
-                            <span class="team-name">Christiano Kuntz</span>
-                            <span class="team-role">Sócio, Coordenador da área Cível</span>
-                            <span class="team-desc">Atuação em hard cases do direito civil, onde o alto nível técnico e
-                                soluções personalizadas fazem a diferença.</span>
-                        </li>
-                        <li>
-                            <span class="team-name">Marco David</span>
-                            <span class="team-role">Sócio Fundador, Área Empresarial</span>
-                            <span class="team-desc">Lidera a área empresarial com atuação em questões corporativas de
-                                diversos setores da economia.</span>
-                        </li>
-                    </ul>
-
-                    <div
-                        style="margin-top: 32px; padding: 24px; border: 1px solid rgba(244,224,176,0.08); background: rgba(27,56,32,0.08);">
-                        <p style="font-size: 0.85rem; color: var(--cinza-text); font-weight: 300; line-height: 1.7;">
-                            A equipe conta ainda com os advogados <strong style="color: var(--branco);">Diego
-                                Godoy</strong>, <strong style="color: var(--branco);">Jorge Felipe</strong> e <strong
-                                style="color: var(--branco);">Julia Andery Amorim</strong>, especializados em apoio
-                            técnico e acompanhamento processual.
-                        </p>
                     </div>
                 </div>
             </div>
@@ -391,13 +393,6 @@
                         Preencha o formulário ao lado e nossa equipe entrará em contato para uma triagem inicial. Todas
                         as informações são tratadas com total sigilo profissional.
                     </p>
-
-                    <h3>Atendimento Emergencial 24h</h3>
-                    <p>
-                        <a href="https://wa.me/5511999155954" target="_blank" rel="noopener">+55 (11) 99915-5954</a>
-                        (WhatsApp)
-                    </p>
-
                     <h3>Telefone do Escritório</h3>
                     <p>+55 (11) 5534-4444</p>
 
@@ -440,6 +435,21 @@
                                 <option value="repercussao">Caso de grande repercussão</option>
                                 <option value="administracao_publica">Crime contra Administração Pública</option>
                                 <option value="outro">Outro caso de alta complexidade</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="agreement_consultation">Para garantir uma análise técnica e dedicada do seu
+                                caso, <strong>nossas consultas iniciais são remuneradas</strong>, conforme as diretrizes
+                                do Código de Ética da OAB. <strong>Você está de acordo com essa condição para
+                                    prosseguirmos com um agendamento?</strong></label>
+                            <select id="agreement_consultation" name="agreement_consultation" required>
+                                <option value="" disabled selected>Selecione uma opção</option>
+                                <option value="sim_agendar">Sim, estou de acordo e quero agendar.</option>
+                                <option value="sim_valor">Sim, mas gostaria de saber o valor antes de confirmar.
+                                </option>
+                                <option value="nao_gratuito">No momento, busco apenas informações gerais gratuitas.
+                                </option>
                             </select>
                         </div>
 

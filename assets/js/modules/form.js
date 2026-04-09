@@ -11,6 +11,7 @@
                 telefone: form.phone.value,
                 email: form.email.value,
                 tipo_caso: form.case_type.value,
+                acordo_consulta: form.agreement_consultation.value,
                 mensagem: form.message.value,
                 origem: 'Landing Page Kuntz',
                 data: new Date().toISOString()

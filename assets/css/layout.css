@@ -467,9 +467,30 @@
 }
 
 .scenario-icon {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
-    display: block;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    color: var(--dourado-accent);
+}
+
+.scenario-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2; /* Increased for better visibility */
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.scenario-icon svg * {
+    stroke: currentColor;
+}
+
+.scenario-card:hover .scenario-icon svg {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(212, 185, 106, 0.4));
 }
 
 .scenario-title {

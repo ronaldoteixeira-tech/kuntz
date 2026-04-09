@@ -33,8 +33,6 @@ export function initGenericCarousel(options) {
         if (index >= total) index = 0;
         current = index;
         
-        // Use percentage relative to the track width. 
-        // 100% / total gives the width of one slide in track-percentage.
         const percentage = (current * 100) / total;
         track.style.transform = `translateX(-${percentage}%)`;
         
@@ -44,10 +42,14 @@ export function initGenericCarousel(options) {
     }
 
     if (prevBtn) {
-        prevBtn.addEventListener('click', () => { goTo(current - 1); resetAutoplay(); });
+        prevBtn.addEventListener('click', () => { 
+            goTo(current - 1); resetAutoplay(); 
+        });
     }
     if (nextBtn) {
-        nextBtn.addEventListener('click', () => { goTo(current + 1); resetAutoplay(); });
+        nextBtn.addEventListener('click', () => { 
+            goTo(current + 1); resetAutoplay(); 
+        });
     }
     
     dots.forEach(dot => {
@@ -63,6 +65,8 @@ export function initGenericCarousel(options) {
 
     return { goTo, resetAutoplay };
 }
+
+
 
 
 

@@ -1,37 +1,69 @@
-// ========== CAROUSEL ==========
-        (function () {
-            const track = document.getElementById('carouselTrack');
-            const slides = track.querySelectorAll('.carousel-slide');
-            const prevBtn = document.getElementById('carouselPrev');
-            const nextBtn = document.getElementById('carouselNext');
-            const dotsContainer = document.getElementById('carouselDots');
-            const dots = dotsContainer.querySelectorAll('.carousel-dot');
-            let current = 0;
-            const total = slides.length;
-            let autoplayInterval;
+export function initGenericCarousel(options) {
+    const { trackId, prevId, nextId, dotsId, autoplaySpeed = 6000 } = options;
+    const track = document.getElementById(trackId);
+    if (!track) return;
 
-            function goTo(index) {
-                if (index < 0) index = total - 1;
-                if (index >= total) index = 0;
-                current = index;
-                track.style.transform = `translateX(-${current * 100}%)`;
-                dots.forEach((d, i) => d.classList.toggle('active', i === current));
-                prevBtn.disabled = false;
-                nextBtn.disabled = false;
-            }
+    const slides = track.querySelectorAll('.carousel-slide');
+    const prevBtn = document.getElementById(prevId);
+    const nextBtn = document.getElementById(nextId);
+    const dotsContainer = document.getElementById(dotsId);
+    
+    if (slides.length === 0) return;
 
-            prevBtn.addEventListener('click', () => { goTo(current - 1); resetAutoplay(); });
-            nextBtn.addEventListener('click', () => { goTo(current + 1); resetAutoplay(); });
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => { goTo(parseInt(dot.dataset.index)); resetAutoplay(); });
-            });
+    let current = 0;
+    const total = slides.length;
+    let autoplayInterval;
 
-            function resetAutoplay() {
-                clearInterval(autoplayInterval);
-                autoplayInterval = setInterval(() => goTo(current + 1), 6000);
-            }
+    // Create dots if container exists and is empty
+    if (dotsContainer && dotsContainer.innerHTML.trim() === '') {
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.classList.add('carousel-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.dataset.index = i;
+            dot.setAttribute('aria-label', `Pular para slide ${i + 1}`);
+            dotsContainer.appendChild(dot);
+        });
+    }
 
-            autoplayInterval = setInterval(() => goTo(current + 1), 6000);
-        })();
+    const dots = dotsContainer ? dotsContainer.querySelectorAll('.carousel-dot') : [];
+
+    function goTo(index) {
+        if (index < 0) index = total - 1;
+        if (index >= total) index = 0;
+        current = index;
+        
+        // Use percentage relative to the track width. 
+        // 100% / total gives the width of one slide in track-percentage.
+        const percentage = (current * 100) / total;
+        track.style.transform = `translateX(-${percentage}%)`;
+        
+        if (dots.length > 0) {
+            dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        }
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => { goTo(current - 1); resetAutoplay(); });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => { goTo(current + 1); resetAutoplay(); });
+    }
+    
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => { goTo(parseInt(dot.dataset.index)); resetAutoplay(); });
+    });
+
+    function resetAutoplay() {
+        clearInterval(autoplayInterval);
+        autoplayInterval = setInterval(() => goTo(current + 1), autoplaySpeed);
+    }
+
+    autoplayInterval = setInterval(() => goTo(current + 1), autoplaySpeed);
+
+    return { goTo, resetAutoplay };
+}
+
+
 
         

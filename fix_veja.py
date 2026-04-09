@@ -1,8 +1,8 @@
 import os
 from PIL import Image
 
+# Path to the "original" file with the fake checkerboard
 input_path = 'assets/images/veja.png'
-output_path = 'assets/images/veja-gold-ready.png'
 
 try:
     img = Image.open(input_path)
@@ -13,18 +13,20 @@ try:
     for item in datas:
         r, g, b, a = item
         
-        # Check if the pixel is white or very close to white (background)
-        # Using a threshold for red, green, and blue
-        if r > 240 and g > 240 and b > 240:
-            newData.append((0, 0, 0, 0)) # Fully transparent
-        else:
-            # It's part of the logo (red or black)
-            # We want to make it black so it works with the golden filter
-            # But we preserve the original alpha if it's not 255
+        # Only keep pixels that are clearly reddish (the logo)
+        # Red is roughly (200+, <50, <50)
+        # The background checkerboard is grey/white (equal-ish R, G, B)
+        if r > 150 and g < 100 and b < 100:
+            # We also make it black to be 100% sure the CSS filter works perfectly
+            # (though brightness(0) would do it anyway)
             newData.append((0, 0, 0, a))
+        else:
+            newData.append((0, 0, 0, 0)) # Fully transparent
 
     img.putdata(newData)
-    img.save(output_path, 'PNG')
-    print(f'SUCCESS: saved to {output_path}')
+    img.save(input_path, 'PNG')
+    print(f'SUCCESS: Original {input_path} has been cleaned with a stricter reddish threshold.')
 except Exception as e:
     print(f'ERROR: {e}')
+
+

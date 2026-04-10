@@ -3,11 +3,11 @@ export function initGenericCarousel(options) {
     const track = document.getElementById(trackId);
     if (!track) return;
 
-    const slides = track.querySelectorAll('.carousel-slide');
+    const slides = Array.from(track.querySelectorAll('.carousel-slide'));
     const prevBtn = document.getElementById(prevId);
     const nextBtn = document.getElementById(nextId);
     const dotsContainer = document.getElementById(dotsId);
-    
+
     if (slides.length === 0) return;
 
     let current = 0;
@@ -21,49 +21,80 @@ export function initGenericCarousel(options) {
             dot.classList.add('carousel-dot');
             if (i === 0) dot.classList.add('active');
             dot.dataset.index = i;
-            dot.setAttribute('aria-label', `Pular para slide ${i + 1}`);
+            dot.setAttribute('aria-label', `Slide ${i + 1}`);
             dotsContainer.appendChild(dot);
         });
     }
 
-    const dots = dotsContainer ? dotsContainer.querySelectorAll('.carousel-dot') : [];
+    const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.carousel-dot')) : [];
 
-    function goTo(index) {
-        if (index < 0) index = total - 1;
-        if (index >= total) index = 0;
-        current = index;
-        
-        const percentage = (current * 100) / total;
-        track.style.transform = `translateX(-${percentage}%)`;
-        
+    function update() {
+        const slideWidth = slides[0].offsetWidth;
+        // Use pixels for more precision and to avoid sub-pixel gaps in some browsers
+        track.style.transform = `translateX(-${current * slideWidth}px)`;
+
+        // Update dots
         if (dots.length > 0) {
             dots.forEach((d, i) => d.classList.toggle('active', i === current));
         }
+
+        // Update button states if needed
+        if (prevBtn) prevBtn.disabled = false;
+        if (nextBtn) nextBtn.disabled = false;
     }
 
+    function goTo(index) {
+        if (index < 0) {
+            current = total - 1;
+        } else if (index >= total) {
+            current = 0;
+        } else {
+            current = index;
+        }
+        update();
+    }
+
+    // Event Listeners
     if (prevBtn) {
-        prevBtn.addEventListener('click', () => { 
-            goTo(current - 1); resetAutoplay(); 
-        });
+        prevBtn.onclick = () => {
+            goTo(current - 1);
+            resetAutoplay();
+        };
     }
+
     if (nextBtn) {
-        nextBtn.addEventListener('click', () => { 
-            goTo(current + 1); resetAutoplay(); 
-        });
+        nextBtn.onclick = () => {
+            goTo(current + 1);
+            resetAutoplay();
+        };
     }
-    
+
     dots.forEach(dot => {
-        dot.addEventListener('click', () => { goTo(parseInt(dot.dataset.index)); resetAutoplay(); });
+        dot.onclick = () => {
+            goTo(parseInt(dot.dataset.index));
+            resetAutoplay();
+        };
     });
 
-    function resetAutoplay() {
-        clearInterval(autoplayInterval);
-        autoplayInterval = setInterval(() => goTo(current + 1), autoplaySpeed);
+    // Handle Resize
+    window.addEventListener('resize', update);
+
+    function startAutoplay() {
+        if (autoplayInterval) clearInterval(autoplayInterval);
+        autoplayInterval = setInterval(() => {
+            goTo(current + 1);
+        }, autoplaySpeed);
     }
 
-    autoplayInterval = setInterval(() => goTo(current + 1), autoplaySpeed);
+    function resetAutoplay() {
+        startAutoplay();
+    }
 
-    return { goTo, resetAutoplay };
+    // Initial positioning
+    setTimeout(update, 50);
+    startAutoplay();
+
+    return { goTo, update, resetAutoplay };
 }
 
 

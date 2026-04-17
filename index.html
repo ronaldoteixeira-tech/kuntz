@@ -969,10 +969,7 @@
                     // Dispara para o n8n silenciosamente (fire-and-forget)
                     fetch(webhookUrl, {
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(dadosParaN8N)
+                        body: new URLSearchParams(dadosParaN8N)
                     }).catch(function (error) {
                         console.log("Erro ao enviar para o n8n.", error);
                     });

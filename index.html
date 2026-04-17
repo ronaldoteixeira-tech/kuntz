@@ -77,8 +77,7 @@
                     </p>
                     <div class="hero-actions">
                         <a href="#contato" class="btn-glow">Avaliar Meu Caso →</a>
-                        <a href="https://wa.me/5511999155954?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20equipe%20Kuntz."
-                            class="btn-secondary" target="_blank" rel="noopener">
+                        <a href="javascript:void(0)" class="btn-secondary wa-trigger">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                 <path
                                     d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
@@ -696,14 +695,301 @@
         </div>
     </footer>
 
-    <!-- ==================== WHATSAPP FLOAT ==================== -->
-    <a href="https://wa.me/5511999155954?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20equipe%20Kuntz."
-        class="wpp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24">
+    <!-- ==================== WHATSAPP WIDGET ==================== -->
+    <style>
+        /* Estilos do Botão Flutuante */
+        .wa-widget-btn {
+            position: fixed !important;
+            bottom: 25px !important;
+            right: 25px !important;
+            width: 60px !important;
+            height: 60px !important;
+            background-color: #25d366 !important;
+            color: white !important;
+            border-radius: 50% !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            cursor: pointer !important;
+            z-index: 999999 !important;
+            transition: transform 0.3s ease;
+        }
+
+        .wa-widget-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .wa-widget-btn svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        /* Estilos do Formulário Popup */
+        .wa-popup-form {
+            display: none;
+            position: fixed !important;
+            bottom: 95px !important;
+            right: 25px !important;
+            width: 320px !important;
+            max-width: 90vw !important;
+            background: #ffffff !important;
+            border-radius: 10px !important;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3) !important;
+            z-index: 999998 !important;
+            font-family: Arial, sans-serif !important;
+            overflow: hidden !important;
+            border: 1px solid #e0e0e0 !important;
+        }
+
+        .wa-popup-header {
+            background-color: #075e54;
+            color: white;
+            padding: 15px;
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .wa-close-btn {
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .wa-popup-body {
+            padding: 15px;
+            text-align: left !important;
+        }
+
+        .wa-popup-body p {
+            font-size: 13px !important;
+            margin-top: 0 !important;
+            color: #555 !important;
+            line-height: 1.4 !important;
+        }
+
+        .wa-popup-body label {
+            display: block !important;
+            font-size: 13px !important;
+            color: #333 !important;
+            margin-bottom: 5px !important;
+            font-weight: bold !important;
+        }
+
+        .wa-popup-body input[type="text"],
+        .wa-popup-body input[type="tel"],
+        .wa-popup-body select,
+        .wa-popup-body textarea {
+            width: 100% !important;
+            box-sizing: border-box !important;
+            padding: 8px !important;
+            margin-bottom: 12px !important;
+            border: 1px solid #ccc !important;
+            border-radius: 5px !important;
+            font-size: 13px !important;
+            background-color: #fff !important;
+            color: #333 !important;
+        }
+
+        .wa-popup-body textarea {
+            resize: none !important;
+            height: 70px !important;
+        }
+
+        .wa-submit-btn {
+            width: 100% !important;
+            background-color: #25d366 !important;
+            color: white !important;
+            border: none !important;
+            padding: 12px !important;
+            border-radius: 5px !important;
+            font-size: 15px !important;
+            font-weight: bold !important;
+            cursor: pointer !important;
+            transition: background-color 0.3s !important;
+        }
+
+        .wa-submit-btn:hover {
+            background-color: #128c7e !important;
+        }
+    </style>
+
+    <div class="wa-widget-btn wa-trigger" id="waWidgetBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
             <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 414.8c-32 0-63.1-8.3-90.6-24.1l-6.5-3.8-67.2 17.6 18-65.6-4.2-6.7C55.6 302.3 45.4 264.4 45.4 223.9c0-98.5 80.2-178.6 178.6-178.6 52.8 0 102.5 20.6 139.8 58s58 87 58 139.8c0 98.6-80.1 178.6-178.6 178.6zm98.3-134.3c-5.4-2.7-31.9-15.8-36.9-17.6-5-1.8-8.6-2.7-12.2 2.7-3.6 5.4-14 17.6-17.1 21.2-3.2 3.6-6.3 4.1-11.8 1.4-5.4-2.7-22.8-8.4-43.5-26.9-16.1-14.4-26.9-32.1-30.1-37.6-3.2-5.4-.3-8.4 2.4-11.1 2.4-2.4 5.4-6.3 8.1-9.5 2.7-3.2 3.6-5.4 5.4-9 1.8-3.6 .9-6.8-.5-9.5-1.4-2.7-12.2-29.4-16.7-40.3-4.4-10.7-8.9-9.3-12.2-9.5-3.2-.2-6.8-.2-10.4-.2-3.6 0-9.5 1.4-14.4 6.8-5 5.4-19 18.5-19 45.1 0 26.6 19.4 52.3 22.1 56 2.7 3.6 38.2 58.3 92.5 81.7 12.9 5.6 23 8.9 30.9 11.4 13 4.1 24.8 3.5 34.2 2.1 10.5-1.5 31.9-13 36.4-25.6 4.5-12.6 4.5-23.4 3.2-25.6-1.3-2.3-5-3.6-10.4-6.3z" />
         </svg>
-    </a>
+    </div>
+
+    <div class="wa-popup-form" id="waPopupForm">
+        <div class="wa-popup-header">
+            <span>Atendimento WhatsApp</span>
+            <span class="wa-close-btn" id="waCloseBtn">✖</span>
+        </div>
+        <div class="wa-popup-body">
+            <p>Responda as perguntas a seguir para que possamos te direcionar melhor:</p>
+
+            <form id="waForm">
+                <label for="wa-nome">Nome:</label>
+                <input type="text" id="wa-nome" required placeholder="Seu nome completo">
+
+                <label for="wa-telefone">Telefone:</label>
+                <input type="tel" id="wa-telefone" required placeholder="(11) 99999-9999" maxlength="15" minlength="14">
+
+                <label for="wa-status">Status do caso:</label>
+                <select id="wa-status" required>
+                    <option value="" disabled selected>Selecione uma opção...</option>
+                    <option value="Investigação / Inquérito (Delegacia)">Investigação / Inquérito (Delegacia)</option>
+                    <option value="Processo Judicial em Curso (Fase de Provas)">Processo Judicial em Curso (Fase de
+                        Provas)</option>
+                    <option value="Aguardando Sentença">Aguardando Sentença</option>
+                    <option value="Sentenciado (Fase de Recurso)">Sentenciado (Fase de Recurso)</option>
+                    <option value="Em Grau de Recurso (TJ, TRF, STJ ou STF)">Em Grau de Recurso (TJ, TRF, STJ ou STF)
+                    </option>
+                    <option value="Execução de Pena">Execução de Pena</option>
+                    <option value="Caso Encerrado / Arquivado">Caso Encerrado / Arquivado</option>
+                    <option value="Não sei informar">Não sei informar</option>
+                </select>
+
+                <label for="wa-resumo">Resumo do seu caso:</label>
+                <textarea id="wa-resumo" required placeholder="Descreva brevemente a situação..."></textarea>
+
+                <input type="hidden" id="wa-utm-source" value="">
+                <input type="hidden" id="wa-utm-medium" value="">
+                <input type="hidden" id="wa-utm-campaign" value="">
+                <input type="hidden" id="wa-utm-content" value="">
+                <input type="hidden" id="wa-utm-term" value="">
+
+                <button type="submit" class="wa-submit-btn">Falar no WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // 1. Tira o widget da coluna
+            var waBtn = document.getElementById("waWidgetBtn");
+            var waFormContainer = document.getElementById("waPopupForm");
+
+            if (waBtn && waFormContainer) {
+                document.body.appendChild(waBtn);
+                document.body.appendChild(waFormContainer);
+            }
+
+            // 2. Lógica para capturar as UTMs da URL e preencher os campos ocultos
+            var urlParams = new URLSearchParams(window.location.search);
+            document.getElementById('wa-utm-source').value = urlParams.get('utm_source') || '';
+            document.getElementById('wa-utm-medium').value = urlParams.get('utm_medium') || '';
+            document.getElementById('wa-utm-campaign').value = urlParams.get('utm_campaign') || '';
+            document.getElementById('wa-utm-content').value = urlParams.get('utm_content') || '';
+            document.getElementById('wa-utm-term').value = urlParams.get('utm_term') || '';
+
+            // 3. Lógica para abrir/fechar o formulário (Múltiplos gatilhos)
+            document.querySelectorAll(".wa-trigger").forEach(function (trigger) {
+                trigger.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    if (waFormContainer.style.display === "block") {
+                        waFormContainer.style.display = "none";
+                    } else {
+                        waFormContainer.style.display = "block";
+                    }
+                });
+            });
+
+            document.getElementById("waCloseBtn").addEventListener("click", function () {
+                waFormContainer.style.display = "none";
+            });
+
+            // 4. Máscara de Telefone 
+            var telInput = document.getElementById('wa-telefone');
+            if (telInput) {
+                telInput.addEventListener('input', function (e) {
+                    var v = e.target.value.replace(/\D/g, "");
+                    v = v.substring(0, 11);
+
+                    if (v.length >= 3) {
+                        v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+                    }
+                    if (v.length >= 8) {
+                        v = v.replace(/(\d)(\d{4})$/, "$1-$2");
+                    }
+
+                    e.target.value = v;
+                });
+            }
+
+            // 5. Lógica de envio: Webhook + WhatsApp
+            var formEl = document.getElementById("waForm");
+            if (formEl) {
+                formEl.addEventListener("submit", function (event) {
+                    event.preventDefault();
+
+                    // Coleta os dados visíveis
+                    var nome = document.getElementById("wa-nome").value;
+                    var telefone = document.getElementById("wa-telefone").value;
+                    var status = document.getElementById("wa-status").value;
+                    var resumo = document.getElementById("wa-resumo").value;
+
+                    // ==========================================
+                    // CONFIGURAÇÃO DO WEBHOOK N8N (URL CONFIRMADA)
+                    // ==========================================
+                    var webhookUrl = "https://n8n.v4lisboatech.com.br/webhook/6e6301de-33f1-4116-8504-7b1cb4adf2b2";
+
+                    // Prepara os dados em formato JSON (Incluindo as UTMs ocultas)
+                    var dadosParaN8N = {
+                        nome: nome,
+                        telefone: telefone,
+                        status_caso: status,
+                        resumo: resumo,
+                        origem: "Widget Site - WhatsApp",
+                        utm_source: document.getElementById("wa-utm-source").value,
+                        utm_medium: document.getElementById("wa-utm-medium").value,
+                        utm_campaign: document.getElementById("wa-utm-campaign").value,
+                        utm_content: document.getElementById("wa-utm-content").value,
+                        utm_term: document.getElementById("wa-utm-term").value,
+                        data_hora: new Date().toLocaleString('pt-BR')
+                    };
+
+                    // Dispara para o n8n silenciosamente (fire-and-forget)
+                    fetch(webhookUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(dadosParaN8N),
+                        mode: 'no-cors'
+                    }).catch(function (error) {
+                        console.log("Erro ao enviar para o n8n.", error);
+                    });
+                    // ==========================================
+
+                    // Monta a mensagem limpa para o WhatsApp (Sem as UTMs)
+                    var numeroDestino = "5511999155954";
+                    var lb = "%0A";
+
+                    var mensagem = "*Novo Contato via Site*" + lb + lb +
+                        "*Nome:* " + encodeURIComponent(nome) + lb +
+                        "*Telefone:* " + encodeURIComponent(telefone) + lb +
+                        "*Status do Caso:* " + encodeURIComponent(status) + lb +
+                        "*Resumo do Caso:* " + encodeURIComponent(resumo);
+
+                    var urlBase = "https://api.whatsapp.com/send?phone=" + numeroDestino + "&text=" + mensagem;
+
+                    // Abre o WhatsApp
+                    window.open(urlBase, '_blank');
+
+                    // Esconde o form e limpa os dados
+                    waFormContainer.style.display = "none";
+                    formEl.reset();
+                });
+            }
+        });
+    </script>
 
     <!-- ==================== SCRIPTS ==================== -->
     <script type="module" src="./assets/js/main.js"></script>

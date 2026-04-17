@@ -21,8 +21,7 @@
                 await fetch('https://n8n.v4lisboatech.com.br/webhook/6e6301de-33f1-4116-8504-7b1cb4adf2b2', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data),
-                    mode: 'no-cors'
+                    body: JSON.stringify(data)
                 });
 
                 form.style.display = 'none';

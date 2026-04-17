@@ -865,6 +865,14 @@
                     <option value="Caso Encerrado / Arquivado">Caso Encerrado / Arquivado</option>
                     <option value="Não sei informar">Não sei informar</option>
                 </select>
+                
+                <label for="wa-acordo">Nossas consultas iniciais são remuneradas, conforme as diretrizes do Código de Ética da OAB. Você está de acordo com essa condição para prosseguirmos com um agendamento?</label>
+                <select id="wa-acordo" required>
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="Sim, estou de acordo e quero agendar.">Sim, estou de acordo e quero agendar.</option>
+                    <option value="Sim, mas gostaria de saber o valor antes de confirmar.">Sim, mas gostaria de saber o valor antes de confirmar.</option>
+                    <option value="No momento, busco apenas informações gerais gratuitas.">No momento, busco apenas informações gerais gratuitas.</option>
+                </select>
 
                 <label for="wa-resumo">Resumo do seu caso:</label>
                 <textarea id="wa-resumo" required placeholder="Descreva brevemente a situação..."></textarea>
@@ -944,6 +952,7 @@
                     var nome = document.getElementById("wa-nome").value;
                     var telefone = document.getElementById("wa-telefone").value;
                     var status = document.getElementById("wa-status").value;
+                    var acordo = document.getElementById("wa-acordo").value;
                     var resumo = document.getElementById("wa-resumo").value;
 
                     // ==========================================
@@ -956,6 +965,7 @@
                         nome: nome,
                         telefone: telefone,
                         status_caso: status,
+                        acordo_consulta: acordo,
                         resumo: resumo,
                         origem: "Widget Site - WhatsApp",
                         utm_source: document.getElementById("wa-utm-source").value,
@@ -983,6 +993,7 @@
                         "*Nome:* " + encodeURIComponent(nome) + lb +
                         "*Telefone:* " + encodeURIComponent(telefone) + lb +
                         "*Status do Caso:* " + encodeURIComponent(status) + lb +
+                        "*Acordo Consulta:* " + encodeURIComponent(acordo) + lb +
                         "*Resumo do Caso:* " + encodeURIComponent(resumo);
 
                     var urlBase = "https://api.whatsapp.com/send?phone=" + numeroDestino + "&text=" + mensagem;

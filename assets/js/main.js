@@ -1,7 +1,7 @@
 import { applyPhoneMask } from './utils/mask.js';
 import './utils/scroll.js';
 import './modules/animations.js';
-import './modules/form.js';
+import './multi-step-form.js';
 import { initGenericCarousel } from './modules/carousel-v2.js';
 
 import { initOfficeCarousel } from './modules/office-slider.js';
@@ -10,7 +10,7 @@ import { initOfficeCarousel } from './modules/office-slider.js';
 // Initialize modules
 document.addEventListener('DOMContentLoaded', () => {
     initOfficeCarousel();
-    applyPhoneMask('phone');
+    applyPhoneMask('f_telefone');
     
     // Initialize Media Carousel
     initGenericCarousel({

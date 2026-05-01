@@ -1,6 +1,25 @@
-# OS
+# Secrets and local config — never commit these
+wrangler.toml
+.dev.vars
+.env
+.env.*
+
+# Cloudflare build artifacts
+.wrangler/
+.cloudflare/
+
+# Large media files (upload via CDN)
+assets/videos/*.mp4
+assets/videos/*.mov
+assets/videos/*.webm
+
+# OS / editor noise
 .DS_Store
 Thumbs.db
-# Web
+.vscode/
+.idea/
+*.swp
+
+# Node
 node_modules/
-.env
+npm-debug.log*

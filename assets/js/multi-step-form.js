@@ -257,10 +257,22 @@ function processSubmission() {
     formData.lead_status = "completo";
     formData.etapa_concluida = 4;
 
-    // Disparar Webhook Final primeiro
     sendWebhookFinal();
 
-    // Disparar GTM
+    // Meta CAPI + GA4 — CompleteRegistration apenas para leads qualificados (A ou B)
+    if (lead_classification === 'A' || lead_classification === 'B') {
+        const nameParts = (formData.nome || '').trim().split(/\s+/);
+        fireTracker('CompleteRegistration', {
+            em: formData.email,
+            fn: nameParts[0] || '',
+            ln: nameParts.slice(1).join(' ') || '',
+            ph: formData.telefone,
+        }, {
+            lead_classification,
+            classification_score,
+        });
+    }
+
     pushGTM('form_submitted', null, lead_classification, classification_score);
 
     // Esconder form
@@ -292,19 +304,54 @@ function sendWebhookParcial() {
         origem: formData.origem
     };
 
-    console.log('[Form] Disparando webhook parcial', partialData);
     fetch(WEBHOOK_URL, {
         method: "POST",
         body: new URLSearchParams(partialData)
     }).catch(err => console.error("[Form] Erro no webhook parcial:", err));
+
+    // Meta CAPI + GA4 — Lead (fase 1: contato coletado)
+    const nameParts = (formData.nome || '').trim().split(/\s+/);
+    fireTracker('Lead', {
+        em: formData.email,
+        fn: nameParts[0] || '',
+        ln: nameParts.slice(1).join(' ') || '',
+        ph: formData.telefone,
+    });
 }
 
 function sendWebhookFinal() {
-    console.log('[Form] Disparando webhook final', formData);
     fetch(WEBHOOK_URL, {
         method: "POST",
         body: new URLSearchParams(formData)
     }).catch(err => console.error("[Form] Erro no webhook final:", err));
+}
+
+// ==========================================
+// 7. TRACKER (Meta CAPI + GA4)
+// ==========================================
+
+function fireTracker(eventName, userData, customData) {
+    const eventId = (crypto.randomUUID && crypto.randomUUID()) ||
+        (Date.now() + '-' + Math.random().toString(36).slice(2));
+    const eventTime = Math.floor(Date.now() / 1000);
+
+    // Browser-side pixel fire para dedup
+    try { if (window.fbq) fbq('track', eventName, customData || {}, { eventID: eventId }); } catch (_) {}
+
+    const payload = {
+        event_name: eventName,
+        event_id: eventId,
+        event_time: eventTime,
+        event_source_url: window.location.href,
+        user_data: userData || {},
+    };
+    if (customData) payload.custom_data = customData;
+
+    fetch('/tracker', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+    }).catch(function () {});
 }
 
 // ==========================================
